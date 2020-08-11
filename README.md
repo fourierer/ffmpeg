@@ -245,14 +245,19 @@ ffmpeg -i test.mp4 -vf vflip output.mp4 # 垂直翻转视频画面
 
 5.使用ffmpeg对视频进行抽帧
 
+抽帧有很多种，包括正常均匀抽帧，抽取指定时间帧，抽取关键帧(IPB帧)，抽取场景转换帧等。以正常均匀抽帧为例，简单介绍指令以及给出一些链接供参考：( https://zhuanlan.zhihu.com/p/85895180 ),( https://www.jianshu.com/p/ddafe46827b7 ),( https://www.jianshu.com/p/3c8c4a892f3c ), ( http://www.ffmpeg.org/ffmpeg.html ).
+
+正常均匀抽帧指令：
+
 ```shell
-ffmpeg -i 视频路径 -q:v 0 抽帧文件夹/image_%06d.jpg
-ffmpeg -i test.TS -q:v 0 ./jpg/image_%06d.jpg # 实例
+ffmpeg -i test.mp4 -r 1 -q:v 2 -f image2 ./jpg/%06d.jpg
 ```
 
-06d表示可以保存6位数的帧数量，如image_000001.jpg，image_000002.jpg，.......
+-r 1表示每秒抽1帧；-q:v 2表示抽取的帧质量，2表示高质量；-f image2表示指定的输出格式；./jpg/%06d.jpg是命名规则，表示可以保存6位数的帧数量，如000001.jpg，000002.jpg，.......。当不指定帧率-r时，默认使用视频本身帧率进行抽帧，如：
 
-
+```shell
+ffmpeg -i test.TS -q:v 0 ./jpg/image_%05d.jpg # 实例
+```
 
 
 

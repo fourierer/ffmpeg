@@ -208,6 +208,7 @@ ffmpeg -i test.avi -acodec copy -vn bgm.mp3 # 取出avi视频中的音频，存�
 
 ```shell
 ffmpeg -i test.ts -acodec copy -vcodec copy -f mp4 output.mp4 # ts视频流转mp4
+ffmpeg -y -i test.ts -c:v libx264 -c:a copy -bsf:a aac_adtstoasc output.mp4 # ts视频转mp4
 ffmpeg -i test.h264 -vcodec copy -f mpegts output.ts # h264视频转ts视频流 
 ffmpeg -i test.h264 -vcodec copy -f mp4 output.mp4 # h264视频转mp4
 ffmpeg -i test.mp4 -b:v 640k output.flv # mp4转flv
@@ -243,4 +244,15 @@ ffmpeg -i test.mp4 -vf vflip output.mp4 # 垂直翻转视频画面
 
 
 5.使用ffmpeg对视频进行抽帧
+
+```shell
+ffmpeg -i 视频路径 -q:v 0 抽帧文件夹/image_%06d.jpg
+ffmpeg -i test.TS -q:v 0 ./jpg/image_%06d.jpg # 实例
+```
+
+06d表示可以保存6位数的帧数量，如image_000001.jpg，image_000002.jpg，.......
+
+
+
+
 

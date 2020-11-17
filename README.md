@@ -229,6 +229,18 @@ ffmpeg -i test.mkv -vcodec copy -acodec copy output.avi  # mkv转avi
 
 
 
+这里添加一个windows下使用优酷自己的ffmpeg来转码kux的方法：
+
+下载优酷客户端，找到ffmpeg.exe的位置(如F:\Program Files (x86)\YouKu\YoukuClient\nplayer\ffmpeg.exe),在nplayer目录下打开powershell，输入以下指令：
+
+```
+.\ffmpeg.exe -y -i "F:\xjj.kux" -c:a copy -c:v copy -threads 2 "F:\xjj.mp4"
+```
+
+参照指令修改路径即可。
+
+
+
 4.视频处理相关
 
 ```shell

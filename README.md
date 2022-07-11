@@ -265,10 +265,25 @@ ffmpeg -i test.mp4 -vf vflip output.mp4 # 垂直翻转视频画面
 ffmpeg -i test.mp4 -r 1 -q:v 2 -f image2 ./jpg/%06d.jpg
 ```
 
--r 1表示每秒抽1帧；-q:v 2表示抽取的帧质量，2表示高质量；-f image2表示指定的输出格式；./jpg/%06d.jpg是命名规则，表示可以保存6位数的帧数量，如000001.jpg，000002.jpg，.......。当不指定帧率-r时，默认使用视频本身帧率进行抽帧，如：
+-r 1表示每秒抽1帧；-q:v 2表示抽取的帧质量，2表示高质量，0表示低质量；-f image2表示指定的输出格式；./jpg/%06d.jpg是命名规则，表示可以保存6位数的帧数量，如000001.jpg，000002.jpg，.......。当不指定帧率-r时，默认使用视频本身帧率进行抽帧，如：
 
 ```shell
-ffmpeg -i test.TS -q:v 0 ./jpg/image_%05d.jpg # 实例
+ffmpeg -i test.TS -q:v 2 ./jpg/image_%05d.jpg # 实例
+```
+
+6.使用ffmpeg加速视频和裁剪视频
+
+ffmpeg加速视频的值从0.25到4，即最多放慢4倍和加速4倍。
+如加速4倍：（不加速音频）
+
+```shell
+ffmpeg -i fast_4x.mp4 -vf  "setpts=0.25*PTS" fast_16.mp4 # 0.25表示加速4倍
+```
+
+裁剪视频：
+
+```shell
+ffmpeg -ss 00:00:03 -i fast_16.mp4 -vcodec copy -acodec copy -t 00:09:55 fast_4x.mp4 # 表示从00:00:03开始，裁剪时长为9分15秒的片段
 ```
 
 
